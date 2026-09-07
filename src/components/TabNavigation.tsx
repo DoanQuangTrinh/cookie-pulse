@@ -40,6 +40,13 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
       badge: "High APY",
     },
     {
+      id: "fortune" as ActiveTab,
+      label: "Fortune Cookie",
+      icon: Sparkles,
+      desc: "On-Chain Degen Game",
+      badge: "Win 10x",
+    },
+    {
       id: "cookiejar" as ActiveTab,
       label: "Cookie Jar",
       icon: Cookie,

@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-import { ExternalLink, Flame, ShieldCheck, Activity, Copy, Check } from "lucide-react";
+import { ExternalLink, Flame, ShieldCheck, Volume2, VolumeX } from "lucide-react";
 import { useTokenData } from "../context/TokenDataContext";
 import { HYPERLANE_BRIDGE_URL, EXPLORER_URL } from "../config/constants";
 import { resolveCookDomain } from "../services/domainService";
 
 export const Navbar: React.FC = () => {
   const { publicKey } = useWallet();
-  const { cookUsd, cookBalance, bCookBalance, chainSlot } = useTokenData();
+  const {
+    cookUsd,
+    cookBalance,
+    bCookBalance,
+    chainSlot,
+    soundEnabled,
+    toggleSound,
+    isDemoMode,
+    toggleDemoMode,
+  } = useTokenData();
   const [domain, setDomain] = useState<string | null>(null);
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -123,20 +132,49 @@ export const Navbar: React.FC = () => {
             <span>Nightly Ready</span>
           </div>
 
+          {/* Sound FX Toggle */}
+          <button
+            onClick={toggleSound}
+            className={`p-2 rounded-xl border transition-all ${
+              soundEnabled
+                ? "bg-cookie-500/10 text-cookie-300 border-cookie-500/30 hover:bg-cookie-500/20"
+                : "bg-obsidian-900 text-slate-500 border-white/[0.06] hover:text-slate-300"
+            }`}
+            title={soundEnabled ? "Mute Web3 Sounds" : "Enable Web3 Sounds"}
+          >
+            {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
+          </button>
+
+          {/* Sandbox / Demo Mode Pill */}
+          <button
+            onClick={toggleDemoMode}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-mono font-semibold transition-all ${
+              isDemoMode
+                ? "bg-amber-500/20 text-amber-300 border-amber-500/40 shadow-cookie-glow"
+                : "bg-obsidian-900 text-slate-400 border-white/[0.08] hover:text-white"
+            }`}
+            title="Toggle Demo Mode with 1,000 COOK sandbox balance"
+          >
+            <span
+              className={`w-2 h-2 rounded-full ${
+                isDemoMode ? "bg-amber-400 animate-ping" : "bg-slate-500"
+              }`}
+            />
+            <span>{isDemoMode ? "Sandbox (1k COOK)" : "Real SVM"}</span>
+          </button>
+
           {/* Connected User Balances */}
-          {publicKey && (
-            <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-obsidian-900 border border-white/[0.08] text-xs font-mono">
-              <div className="flex items-center gap-1 text-slate-300">
-                <span>{cookBalance.toFixed(2)}</span>
-                <span className="text-cookie-400 font-semibold">COOK</span>
-              </div>
-              <span className="text-slate-600">|</span>
-              <div className="flex items-center gap-1 text-slate-300">
-                <span>{bCookBalance.toFixed(2)}</span>
-                <span className="text-amber-300 font-semibold">bCOOK</span>
-              </div>
+          <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-obsidian-900 border border-white/[0.08] text-xs font-mono">
+            <div className="flex items-center gap-1 text-slate-300">
+              <span>{cookBalance.toFixed(2)}</span>
+              <span className="text-cookie-400 font-semibold">COOK</span>
             </div>
-          )}
+            <span className="text-slate-600">|</span>
+            <div className="flex items-center gap-1 text-slate-300">
+              <span>{bCookBalance.toFixed(2)}</span>
+              <span className="text-amber-300 font-semibold">bCOOK</span>
+            </div>
+          </div>
 
           {/* Custom Wallet Button */}
           <div className="flex items-center">

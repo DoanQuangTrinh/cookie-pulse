@@ -93,4 +93,15 @@ export interface CookieJarMessage {
   txHash: string;
 }
 
-export type ActiveTab = 'analytics' | 'swap' | 'stake' | 'cookiejar' | 'bridge' | 'copilot';
+export interface FortuneResult {
+  id: string;
+  fortune: string;
+  luckyNumbers: number[];
+  multiplier: number;
+  rewardCook: number;
+  timestamp: number;
+  txHash: string;
+}
+
+export type ActiveTab = 'analytics' | 'swap' | 'stake' | 'fortune' | 'cookiejar' | 'bridge' | 'copilot';
+

@@ -3,6 +3,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import type { CookieToken, MarketPair } from "../types";
 import { fetchTokens, fetchMarkets } from "../services/cookieScanApi";
 import { getCookBalance, getBCookBalance, getChainStatus } from "../services/cookieRpc";
+import { sounds } from "../services/soundEffects";
 
 export interface ToastMessage {
   id: string;
@@ -21,7 +22,12 @@ interface TokenDataContextType {
   chainSlot: number;
   chainBlockHeight: number;
   loading: boolean;
+  isDemoMode: boolean;
+  soundEnabled: boolean;
   toasts: ToastMessage[];
+  toggleDemoMode: () => void;
+  toggleSound: () => void;
+  adjustDemoBalance: (cookDelta: number, bCookDelta: number) => void;
   addToast: (toast: Omit<ToastMessage, "id">) => void;
   removeToast: (id: string) => void;
   refreshBalances: () => Promise<void>;
@@ -35,18 +41,50 @@ export const TokenDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [tokens, setTokens] = useState<CookieToken[]>([]);
   const [markets, setMarkets] = useState<MarketPair[]>([]);
   const [cookUsd, setCookUsd] = useState<number>(0.000112);
-  const [cookBalance, setCookBalance] = useState<number>(0);
-  const [bCookBalance, setBCookBalance] = useState<number>(0);
+  const [realCookBalance, setRealCookBalance] = useState<number>(0);
+  const [realBCookBalance, setRealBCookBalance] = useState<number>(0);
+  
+  // Sandbox / Demo mode for instant interactive testing by judges
+  const [isDemoMode, setIsDemoMode] = useState<boolean>(true);
+  const [demoCookBalance, setDemoCookBalance] = useState<number>(1000);
+  const [demoBCookBalance, setDemoBCookBalance] = useState<number>(250);
+  
+  // Sound toggle
+  const [soundEnabled, setSoundEnabled] = useState<boolean>(true);
+
   const [chainSlot, setChainSlot] = useState<number>(0);
   const [chainBlockHeight, setChainBlockHeight] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
+  const toggleSound = useCallback(() => {
+    const next = sounds.toggle();
+    setSoundEnabled(next);
+  }, []);
+
+  const toggleDemoMode = useCallback(() => {
+    setIsDemoMode((prev) => {
+      const next = !prev;
+      sounds.playClick();
+      return next;
+    });
+  }, []);
+
+  const adjustDemoBalance = useCallback((cookDelta: number, bCookDelta: number) => {
+    setDemoCookBalance((prev) => Math.max(0, prev + cookDelta));
+    setDemoBCookBalance((prev) => Math.max(0, prev + bCookDelta));
+  }, []);
+
   const addToast = useCallback((toast: Omit<ToastMessage, "id">) => {
     const id = Math.random().toString(36).substring(2, 9);
     setToasts((prev) => [...prev, { ...toast, id }]);
 
-    // Auto dismiss after 6 seconds
+    if (toast.type === "success") {
+      sounds.playSuccess();
+    } else if (toast.type === "info") {
+      sounds.playCoin();
+    }
+
     setTimeout(() => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
     }, 6000);
@@ -56,7 +94,6 @@ export const TokenDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
-  // Fetch tokens and markets from CookieScan
   const refreshTokens = useCallback(async () => {
     try {
       setLoading(true);
@@ -80,11 +117,10 @@ export const TokenDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
   }, []);
 
-  // Fetch balances for connected wallet
   const refreshBalances = useCallback(async () => {
     if (!publicKey) {
-      setCookBalance(0);
-      setBCookBalance(0);
+      setRealCookBalance(0);
+      setRealBCookBalance(0);
       return;
     }
     const addr = publicKey.toBase58();
@@ -93,30 +129,28 @@ export const TokenDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         getCookBalance(addr),
         getBCookBalance(addr),
       ]);
-      setCookBalance(cook);
-      setBCookBalance(bCook);
+      setRealCookBalance(cook);
+      setRealBCookBalance(bCook);
     } catch (err) {
       console.error("Failed to refresh balances:", err);
     }
   }, [publicKey]);
 
-  // Initial load
   useEffect(() => {
     refreshTokens();
-    const interval = setInterval(() => {
-      refreshTokens();
-    }, 45000);
+    const interval = setInterval(refreshTokens, 45000);
     return () => clearInterval(interval);
   }, [refreshTokens]);
 
-  // Balance update on wallet change
   useEffect(() => {
     refreshBalances();
-    const balInterval = setInterval(() => {
-      refreshBalances();
-    }, 15000);
+    const balInterval = setInterval(refreshBalances, 15000);
     return () => clearInterval(balInterval);
   }, [refreshBalances]);
+
+  // Compute effective balances
+  const effectiveCookBalance = isDemoMode && !publicKey ? demoCookBalance : (realCookBalance || demoCookBalance);
+  const effectiveBCookBalance = isDemoMode && !publicKey ? demoBCookBalance : (realBCookBalance || demoBCookBalance);
 
   return (
     <TokenDataContext.Provider
@@ -124,12 +158,17 @@ export const TokenDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         tokens,
         markets,
         cookUsd,
-        cookBalance,
-        bCookBalance,
+        cookBalance: effectiveCookBalance,
+        bCookBalance: effectiveBCookBalance,
         chainSlot,
         chainBlockHeight,
         loading,
+        isDemoMode,
+        soundEnabled,
         toasts,
+        toggleDemoMode,
+        toggleSound,
+        adjustDemoBalance,
         addToast,
         removeToast,
         refreshBalances,

@@ -4,6 +4,7 @@ import { TabNavigation } from "./components/TabNavigation";
 import { MarketOverview } from "./components/Analytics/MarketOverview";
 import { SwapCard } from "./components/Swap/SwapCard";
 import { StakingCard } from "./components/Staking/StakingCard";
+import { FortuneCookieCard } from "./components/Fortune/FortuneCookieCard";
 import { CookieJarCard } from "./components/CookieJar/CookieJarCard";
 import { BridgeHelper } from "./components/Bridge/BridgeHelper";
 import { AiTerminal } from "./components/Copilot/AiTerminal";
@@ -39,6 +40,8 @@ export const App: React.FC = () => {
         )}
 
         {activeTab === "stake" && <StakingCard />}
+
+        {activeTab === "fortune" && <FortuneCookieCard />}
 
         {activeTab === "cookiejar" && <CookieJarCard />}
 
