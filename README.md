@@ -208,3 +208,4 @@ Special thanks to @TheCookieChain & @SuperteamDAO! 🍪🚀
 ## 📄 License
 
 MIT License © 2026 CookiePulse Contributors.
+# cookie-pulse
