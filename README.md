@@ -29,24 +29,39 @@ CookiePulse brings together a complete DeFi and ecosystem cockpit into one unifi
 - Visual route inspection with hop breakdown, simulated price impact, protocol fee (20 bps), and slippage tolerance.
 - Executes swaps with real-time on-chain status tracking and celebratory micro-interactions.
 
-### 4. 🥩 1-Click bCOOK Liquid Staking
+### 4. 🥠 On-Chain Fortune Cookie Cracker (Degen Game)
+- Put 0.1 COOK at stake to crack an on-chain fortune cookie with sub-second cryptographic entropy.
+- Win up to **10x Jackpot** multipliers directly added to your balance.
+- Receive hilarious, community-tailored crypto prophecies and lucky numbers.
+- Live on-chain ledger records recent fortunes, win multipliers, and timestamps in real time.
+
+### 5. 🔊 Web Audio Procedural Sound Engine
+- High-fidelity Web3 soundscapes synthesized directly in the browser using the **Web Audio API** (0 external mp3 dependencies!).
+- Crispy cookie cracking sounds, coin jackpot cascades, and transaction confirmations.
+- Seamless one-click mute/unmute control right on the navigation bar.
+
+### 6. 🧪 Sandbox / Judge Demo Mode
+- Instant 1-click toggle in the header providing **1,000 simulated COOK**.
+- Allows judges, bounty evaluators, and newcomers to test Swaps, Staking, and the Fortune Cookie cracker with zero onboarding friction or real funds required!
+
+### 7. 🥩 1-Click bCOOK Liquid Staking
 - Native on-chain interaction with Cookie Chain's canonical **SPL Stake Pool** (`GxbNKNYdtNXQkhDkpHdLDAMX64GxaECgANqdfp6cUGH4`).
 - **Stake COOK**: Deposits COOK into the reserve and mints **bCOOK** (bakedCOOK) auto-compounding at ~14.8% APY.
 - **Instant Unstake**: Burns bCOOK to withdraw liquid COOK instantly from the reserve with 0-epoch wait time.
 - Dynamic exchange rate calculation fetched directly from the on-chain stake pool account.
 
-### 5. 🍪 Community Cookie Jar & On-Chain Tribute
+### 8. 🍪 Community Cookie Jar & On-Chain Tribute
 - Inscribes permanent messages on the Cookie Chain blockchain using the **Solana Memo Program** (`MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr`).
 - Allows users to send tips in COOK to the community vault alongside a custom baker tribute.
 - Sub-second transaction confirmation with direct links to `https://cookiescan.io/tx/{sig}`.
 - Real-time tribute feed showcasing recent community messages.
 
-### 6. 🌉 Hyperlane Bridge Companion
+### 9. 🌉 Hyperlane Bridge Companion
 - Step-by-step interactive guide and balance checker for bridging between **Solana Mainnet** and **Cookie Chain**.
 - Direct portal to the Hyperlane Warp Route (`https://hyperlane.cookiescan.io`).
 - Explains token mechanics (Cookie native COOK with 9 decimals ⇄ Solana Token-2022 COOK with 6 decimals).
 
-### 7. 🤖 CookieCopilot AI Terminal (`cookie-mcp` Interface)
+### 10. 🤖 CookieCopilot AI Terminal (`cookie-mcp` Interface)
 - Conversational Web3 terminal designed around the official `cookie-mcp` tool suite.
 - Simulates and formats MCP actions (`get_tokens`, `get_quote`, `stake`, `bridge_status`).
 - Quick prompt pills for querying top tokens, pricing swap routes, and examining staking yields.
@@ -139,7 +154,7 @@ npx vercel deploy --prod
 *(Use this template when submitting your bounty entry to X and the Cookie Chain Telegram community)*
 
 ```markdown
-🧵 1/6: Introducing CookiePulse 🍪⚡️ — The all-in-one DeFi, Analytics, and AI Copilot Terminal built natively on @TheCookieChain! 
+🧵 1/7: Introducing CookiePulse 🍪⚡️ — The all-in-one DeFi Terminal, On-Chain Fortune Game & AI Copilot built natively on @TheCookieChain! 
 
 Built for the @SuperteamDAO Cookie Chain bounty. Here's what we shipped 👇
 
@@ -148,14 +163,23 @@ Built for the @SuperteamDAO Cookie Chain bounty. Here's what we shipped 👇
 
 ---
 
-🧵 2/6: Why Cookie Chain? 
+🧵 2/7: Why Cookie Chain? 
 With sub-second finality and near-zero gas fees (<$0.000001), @TheCookieChain is the premier playground for high-speed SVM experimentation.
 
 CookiePulse leverages this raw speed to deliver instant swaps, live token indexing, and real on-chain liquid staking!
 
 ---
 
-🧵 3/6: 👛 Nightly Wallet & Ecosystem Integration
+🧵 3/7: 🥠 On-Chain Fortune Cookie (Degen Game + Sound FX!)
+Crack an on-chain fortune cookie for 0.1 COOK!
+- Sub-second cryptographic randomness
+- Win up to 10x Jackpot rewards directly to your wallet
+- Web Audio procedural sound effects (crunch, coin cascades!)
+- Plus: Sandbox Mode with 1,000 demo COOK for zero-friction testing!
+
+---
+
+🧵 4/7: 👛 Nightly Wallet & Ecosystem Integration
 We natively integrated @Nightly_app for seamless wallet connection on Cookie Chain!
 - Instant balance tracking for $COOK & $bCOOK
 - Auto-resolution of .cook domain handles via CookOven
@@ -163,13 +187,13 @@ We natively integrated @Nightly_app for seamless wallet connection on Cookie Cha
 
 ---
 
-🧵 4/6: 🥩 1-Click bCOOK Liquid Staking
+🧵 5/7: 🥩 1-Click bCOOK Liquid Staking
 Stake $COOK directly into the canonical SPL Stake Pool to earn auto-compounding yields (~14.8% APY) in $bCOOK!
 Need instant liquidity? Unstake back to $COOK in a single block with zero unlock epochs.
 
 ---
 
-🧵 5/6: 🌉 How to Bridge to Cookie Chain:
+🧵 6/7: 🌉 How to Bridge to Cookie Chain:
 New to Cookie Chain? Bridging from Solana takes under 2 minutes:
 1. Visit https://hyperlane.cookiescan.io
 2. Connect your wallet (Solana side)
@@ -180,7 +204,7 @@ CookiePulse includes an interactive bridge companion to guide you every step of 
 
 ---
 
-🧵 6/6: 🤖 AI Copilot & Cookie Jar
+🧵 7/7: 🤖 AI Copilot & Cookie Jar
 Inspired by `cookie-mcp`, our built-in Copilot terminal helps you query top tokens, inspect liquidity, and simulate routes in plain English. 
 
 Leave your mark by dropping a tip and an on-chain memo in the Community Cookie Jar!
