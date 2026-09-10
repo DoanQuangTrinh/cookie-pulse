@@ -1,5 +1,6 @@
 import { COOKIESCAN_API_URL, COOK_MINT } from "../config/constants";
 import type { CookieToken, MarketPair } from "../types";
+import { resolveTokenLogo } from "../utils/imageUrl";
 
 let cachedTokens: CookieToken[] | null = null;
 let cachedCookUsd = 0.00011;
@@ -35,7 +36,14 @@ export async function fetchTokens(): Promise<{ cookUsd: number; tokens: CookieTo
     const json: TokensApiResponse = await res.json();
     
     if (json.data && Array.isArray(json.data)) {
-      cachedTokens = json.data;
+      const sanitized = json.data.map((token) => ({
+        ...token,
+        metadata: {
+          ...token.metadata,
+          logo: resolveTokenLogo(token.metadata?.logo, token.mint, token.metadata?.symbol),
+        },
+      }));
+      cachedTokens = sanitized;
       cachedCookUsd = json.cookUsd || cachedCookUsd;
       lastFetchTime = now;
       return { cookUsd: cachedCookUsd, tokens: cachedTokens };

@@ -57,6 +57,7 @@ export interface Translations {
   tableChange24h: string;
   tableLiquidity: string;
   tableActions: string;
+  btnViewChart: string;
   btnSwap: string;
   btnViewExplorer: string;
   noTokensFound: string;
@@ -192,6 +193,7 @@ const translations: Record<Language, Translations> = {
     tableChange24h: "24h Change",
     tableLiquidity: "Liquidity (COOK)",
     tableActions: "Actions",
+    btnViewChart: "Chart",
     btnSwap: "Swap",
     btnViewExplorer: "View on CookieScan",
     noTokensFound: "No tokens found matching your filter.",
@@ -319,6 +321,7 @@ const translations: Record<Language, Translations> = {
     tableChange24h: "Biến Động 24h",
     tableLiquidity: "Thanh Khoản (COOK)",
     tableActions: "Thao Tác",
+    btnViewChart: "Biểu Đồ",
     btnSwap: "Hoán Đổi",
     btnViewExplorer: "Xem Trên CookieScan",
     noTokensFound: "Không tìm thấy token nào khớp với bộ lọc.",

@@ -9,6 +9,7 @@ import {
   DollarSign,
 } from "lucide-react";
 import type { CookieToken } from "../../types";
+import { TokenAvatar } from "../UI/TokenAvatar";
 
 interface ProTradingChartProps {
   inputToken: CookieToken;
@@ -124,21 +125,21 @@ export const ProTradingChart: React.FC<ProTradingChartProps> = ({
       <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
           <div className="flex -space-x-2">
-            <img
-              src={inputToken.metadata?.logo || "/cookie-logo.svg"}
-              alt="In"
-              className="w-8 h-8 rounded-full border border-obsidian-900 bg-obsidian-950 p-0.5 object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/cookie-logo.svg";
-              }}
+            <TokenAvatar
+              src={inputToken.metadata?.logo}
+              symbol={inputToken.metadata?.symbol}
+              name={inputToken.metadata?.name}
+              mint={inputToken.mint}
+              size="md"
+              className="border-2 border-obsidian-950"
             />
-            <img
-              src={outputToken.metadata?.logo || "/cookie-logo.svg"}
-              alt="Out"
-              className="w-8 h-8 rounded-full border border-obsidian-900 bg-obsidian-950 p-0.5 object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/cookie-logo.svg";
-              }}
+            <TokenAvatar
+              src={outputToken.metadata?.logo}
+              symbol={outputToken.metadata?.symbol}
+              name={outputToken.metadata?.name}
+              mint={outputToken.mint}
+              size="md"
+              className="border-2 border-obsidian-950"
             />
           </div>
 

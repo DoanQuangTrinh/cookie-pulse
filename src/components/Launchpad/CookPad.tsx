@@ -24,6 +24,7 @@ import { useTokenData } from "../../context/TokenDataContext";
 import { useLanguage } from "../../context/LanguageContext";
 import confetti from "canvas-confetti";
 import type { BondingCurveToken } from "../../types";
+import { TokenAvatar } from "../UI/TokenAvatar";
 
 const LOGO_PRESETS = [
   { label: "Cookie", icon: "🍪", url: "/cookie-logo.svg" },
@@ -238,13 +239,12 @@ export const CookPad: React.FC = () => {
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
                 <div className="flex items-center gap-4">
                   <div className="relative">
-                    <img
+                    <TokenAvatar
                       src={kingOfTheHill.logoUrl}
-                      alt={kingOfTheHill.name}
-                      className="w-16 h-16 rounded-2xl bg-obsidian-950 border-2 border-amber-400/40 p-1 object-cover shadow-lg"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = "/cookie-logo.svg";
-                      }}
+                      name={kingOfTheHill.name}
+                      symbol={kingOfTheHill.symbol}
+                      size="xl"
+                      className="!w-16 !h-16 rounded-2xl border-2 border-amber-400/40 p-1 object-cover shadow-lg"
                     />
                     <div className="absolute -top-2.5 -right-2.5 w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-yellow-600 flex items-center justify-center text-obsidian-950 shadow-md">
                       <Crown className="w-4 h-4 fill-current" />
@@ -318,13 +318,13 @@ export const CookPad: React.FC = () => {
                   {/* Top row */}
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <img
+                      <TokenAvatar
                         src={token.logoUrl}
-                        alt={token.name}
-                        className="w-12 h-12 rounded-2xl bg-obsidian-950 border border-white/[0.08] p-1 object-cover group-hover:scale-105 transition-transform"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = "/cookie-logo.svg";
-                        }}
+                        name={token.name}
+                        symbol={token.symbol}
+                        mint={token.mint}
+                        size="lg"
+                        className="!w-12 !h-12 rounded-2xl border border-white/[0.08] p-1 object-cover group-hover:scale-105 transition-transform"
                       />
                       <div>
                         <div className="flex items-center gap-1.5">
@@ -596,13 +596,12 @@ export const CookPad: React.FC = () => {
               {/* Simulated Radar Card */}
               <div className="p-4 rounded-2xl bg-obsidian-950 border border-cookie-500/20 flex flex-col gap-3 relative overflow-hidden">
                 <div className="flex items-center gap-3">
-                  <img
+                  <TokenAvatar
                     src={activeLogo}
-                    alt="Token Preview"
-                    className="w-12 h-12 rounded-2xl bg-obsidian-900 border border-white/[0.08] p-1 object-cover"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = "/cookie-logo.svg";
-                    }}
+                    name={name || "Token Name"}
+                    symbol={symbol || "SYM"}
+                    size="lg"
+                    className="!w-12 !h-12 rounded-2xl border border-white/[0.08] p-1 object-cover"
                   />
                   <div>
                     <div className="flex items-center gap-1.5">

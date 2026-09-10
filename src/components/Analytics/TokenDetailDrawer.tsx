@@ -18,6 +18,7 @@ import {
 import type { CookieToken } from "../../types";
 import { getExplorerTokenUrl } from "../../config/constants";
 import { useLanguage } from "../../context/LanguageContext";
+import { TokenAvatar } from "../UI/TokenAvatar";
 
 interface TokenDetailDrawerProps {
   token: CookieToken | null;
@@ -120,13 +121,13 @@ export const TokenDetailDrawer: React.FC<TokenDetailDrawerProps> = ({
         {/* Top Header */}
         <div className="shrink-0 p-5 border-b border-white/[0.08] flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <img
-              src={token.metadata?.logo || "/cookie-logo.svg"}
-              alt={symbol}
-              className="w-11 h-11 rounded-2xl bg-obsidian-900 border border-white/[0.08] p-1 object-cover"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "/cookie-logo.svg";
-              }}
+            <TokenAvatar
+              src={token.metadata?.logo}
+              symbol={symbol}
+              name={name}
+              mint={token.mint}
+              size="xl"
+              className="!w-12 !h-12 rounded-2xl p-0.5"
             />
             <div>
               <div className="flex items-center gap-2">

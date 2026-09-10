@@ -18,6 +18,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { getExplorerTokenUrl, getExplorerAddressUrl } from "../../config/constants";
 import type { CookieToken } from "../../types";
 import { TokenDetailDrawer } from "./TokenDetailDrawer";
+import { TokenAvatar } from "../UI/TokenAvatar";
 
 interface MarketOverviewProps {
   onSelectTokenForSwap?: (mint: string) => void;
@@ -296,13 +297,12 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
                       <span className="text-xs font-mono text-slate-500 w-5">
                         {index + 1}
                       </span>
-                      <img
-                        src={logo}
-                        alt={symbol}
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = "/cookie-logo.svg";
-                        }}
-                        className="w-8 h-8 rounded-full object-cover bg-obsidian-800 border border-white/[0.08]"
+                      <TokenAvatar
+                        src={token.metadata?.logo}
+                        symbol={symbol}
+                        name={name}
+                        mint={token.mint}
+                        size="md"
                       />
                       <div>
                         <div className="font-semibold text-white group-hover:text-cookie-300 transition-colors flex items-center gap-1.5">
@@ -352,7 +352,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
                           title="View Chart & Security Audit"
                         >
                           <BarChart2 className="w-3.5 h-3.5 text-cookie-400" />
-                          <span className="hidden xl:inline">Biểu Đồ</span>
+                          <span className="hidden xl:inline">{t.btnViewChart}</span>
                         </button>
                         {onSelectTokenForSwap && (
                           <button

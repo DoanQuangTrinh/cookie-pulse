@@ -24,6 +24,7 @@ import { getSwapQuote } from "../../services/cookieBoxApi";
 import { useLanguage } from "../../context/LanguageContext";
 import { ProTradingChart } from "./ProTradingChart";
 import { LiveTradeStream } from "./LiveTradeStream";
+import { TokenAvatar } from "../UI/TokenAvatar";
 import type { SwapQuote, CookieToken } from "../../types";
 
 interface SwapCardProps {
@@ -405,10 +406,12 @@ export const SwapCard: React.FC<SwapCardProps> = ({
 
               {/* Token Selector Pill */}
               <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-obsidian-850 border border-white/[0.08] shrink-0">
-                <img
-                  src={inputToken.metadata?.logo || "/cookie-logo.svg"}
-                  alt=""
-                  className="w-6 h-6 rounded-full object-cover"
+                <TokenAvatar
+                  src={inputToken.metadata?.logo}
+                  symbol={inputToken.metadata?.symbol}
+                  name={inputToken.metadata?.name}
+                  mint={inputToken.mint}
+                  size="sm"
                 />
                 <span className="font-bold text-sm text-white">
                   {inputToken.metadata?.symbol}
@@ -460,10 +463,12 @@ export const SwapCard: React.FC<SwapCardProps> = ({
 
               {/* Token Selector Pill */}
               <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-obsidian-850 border border-white/[0.08] shrink-0">
-                <img
-                  src={outputToken.metadata?.logo || "/cookie-logo.svg"}
-                  alt=""
-                  className="w-6 h-6 rounded-full object-cover"
+                <TokenAvatar
+                  src={outputToken.metadata?.logo}
+                  symbol={outputToken.metadata?.symbol}
+                  name={outputToken.metadata?.name}
+                  mint={outputToken.mint}
+                  size="sm"
                 />
                 <span className="font-bold text-sm text-white">
                   {outputToken.metadata?.symbol}
