@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { useTokenData } from "../../context/TokenDataContext";
+import { useLanguage } from "../../context/LanguageContext";
 import {
   getStakePoolStats,
   buildStakeCookTx,
@@ -24,6 +25,7 @@ export const StakingCard: React.FC = () => {
   const { publicKey, sendTransaction } = useWallet();
   const { connection } = useConnection();
   const { cookBalance, bCookBalance, addToast, refreshBalances } = useTokenData();
+  const { t } = useLanguage();
 
   const [mode, setMode] = useState<"stake" | "unstake">("stake");
   const [amount, setAmount] = useState<string>("50");
@@ -184,7 +186,7 @@ export const StakingCard: React.FC = () => {
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            Stake COOK (Mint bCOOK)
+            {t.tabStakeAction}
           </button>
           <button
             onClick={() => setMode("unstake")}
@@ -194,17 +196,17 @@ export const StakingCard: React.FC = () => {
                 : "text-slate-400 hover:text-white"
             }`}
           >
-            Instant Unstake (Burn bCOOK)
+            {t.tabUnstakeAction}
           </button>
         </div>
 
         {/* Input Card */}
         <div className="p-4 rounded-2xl bg-obsidian-950/70 border border-white/[0.06] space-y-2">
           <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>{mode === "stake" ? "Deposit Amount" : "Unstake Amount"}</span>
+            <span>{mode === "stake" ? t.stakeInputLabel : t.unstakeInputLabel}</span>
             <div className="flex items-center gap-2">
               <span>
-                Available:{" "}
+                {t.balance}{" "}
                 <strong className="text-white">
                   {mode === "stake" ? cookBalance.toFixed(3) : bCookBalance.toFixed(3)}{" "}
                   {mode === "stake" ? "COOK" : "bCOOK"}
@@ -214,7 +216,7 @@ export const StakingCard: React.FC = () => {
                 onClick={handleMax}
                 className="px-2 py-0.5 rounded bg-cookie-500/20 text-cookie-300 font-bold hover:bg-cookie-500/30 text-[10px]"
               >
-                MAX
+                {t.max}
               </button>
             </div>
           </div>
@@ -244,7 +246,7 @@ export const StakingCard: React.FC = () => {
         {/* Output Estimation Card */}
         <div className="p-4 rounded-2xl bg-obsidian-950/70 border border-white/[0.06] space-y-1">
           <p className="text-xs font-mono text-slate-400">
-            You will receive approximately:
+            {mode === "stake" ? t.receiveBcook : t.receiveCook}:
           </p>
           <div className="flex items-center justify-between">
             <span className="text-2xl sm:text-3xl font-mono font-bold text-cookie-300">
@@ -263,7 +265,7 @@ export const StakingCard: React.FC = () => {
             <span className="text-slate-200">SPL Stake Pool (Canonical)</span>
           </div>
           <div className="flex justify-between">
-            <span>Protocol Fee</span>
+            <span>{t.protocolFee}</span>
             <span className="text-slate-200">
               {mode === "stake"
                 ? `${poolStats.depositFeePct}% Deposit Fee`
@@ -271,7 +273,7 @@ export const StakingCard: React.FC = () => {
             </span>
           </div>
           <div className="flex justify-between">
-            <span>Unstake Speed</span>
+            <span>{t.finalityTime}</span>
             <span className="text-emerald-400 font-semibold">
               Instant from reserve (0 epoch wait)
             </span>
@@ -291,14 +293,12 @@ export const StakingCard: React.FC = () => {
           {submitting ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Broadcasting to Cookie Chain...</span>
+              <span>{mode === "stake" ? t.staking : t.unstaking}</span>
             </>
           ) : !publicKey ? (
-            <span>Connect Wallet to Stake</span>
-          ) : mode === "stake" ? (
-            <span>Stake COOK Now</span>
+            <span>{t.selectWallet}</span>
           ) : (
-            <span>Instant Unstake to COOK</span>
+            <span>{mode === "stake" ? t.btnStakeCook : t.btnUnstakeCook}</span>
           )}
         </button>
       </div>

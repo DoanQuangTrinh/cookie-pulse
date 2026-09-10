@@ -20,6 +20,7 @@ import {
 } from "@solana/web3.js";
 import { Buffer } from "buffer";
 import { useTokenData } from "../../context/TokenDataContext";
+import { useLanguage } from "../../context/LanguageContext";
 import {
   COOKIE_JAR_VAULT,
   MEMO_PROGRAM_ID,
@@ -59,7 +60,8 @@ const INITIAL_MESSAGES: CookieJarMessage[] = [
 export const CookieJarCard: React.FC = () => {
   const { publicKey, sendTransaction } = useWallet();
   const { connection } = useConnection();
-  const { cookBalance, addToast, refreshBalances } = useTokenData();
+  const { cookBalance, isDemoMode, adjustDemoBalance, addToast, refreshBalances } = useTokenData();
+  const { t } = useLanguage();
 
   const [messages, setMessages] = useState<CookieJarMessage[]>(INITIAL_MESSAGES);
   const [tipAmount, setTipAmount] = useState<number>(5);
@@ -187,10 +189,10 @@ export const CookieJarCard: React.FC = () => {
             </div>
             <div>
               <h3 className="text-lg font-bold text-white tracking-tight">
-                Community Cookie Jar
+                {t.jarTitle}
               </h3>
               <p className="text-xs text-slate-400 font-mono">
-                Send COOK tips & inscribe on-chain messages
+                {t.jarSubtitle}
               </p>
             </div>
           </div>
@@ -198,7 +200,7 @@ export const CookieJarCard: React.FC = () => {
           {/* Amount selector pills */}
           <div className="space-y-2">
             <label className="text-xs font-mono text-slate-400">
-              Select Tip Amount (COOK)
+              {t.tipAmountLabel}
             </label>
             <div className="grid grid-cols-4 gap-2">
               {[1, 5, 25, 100].map((amt) => (
@@ -220,12 +222,12 @@ export const CookieJarCard: React.FC = () => {
           {/* Message Input */}
           <div className="space-y-2">
             <label className="text-xs font-mono text-slate-400">
-              Your On-Chain Message / Baker Tribute
+              {t.memoMessageLabel}
             </label>
             <textarea
               value={userMessage}
               onChange={(e) => setUserMessage(e.target.value)}
-              placeholder="e.g. Shoutout to the Cookie Chain community! Loving the sub-second speed."
+              placeholder={t.memoPlaceholder}
               rows={3}
               maxLength={200}
               className="w-full p-3.5 rounded-2xl bg-obsidian-950/70 border border-white/[0.08] focus:border-cookie-500/50 focus:outline-none text-sm text-white placeholder-slate-600 font-sans transition-all"
@@ -249,14 +251,14 @@ export const CookieJarCard: React.FC = () => {
             {sending ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span>Inscribing on Cookie Chain...</span>
+                <span>{t.sendingTribute}</span>
               </>
             ) : !publicKey ? (
-              <span>Connect Wallet to Tip</span>
+              <span>{t.selectWallet}</span>
             ) : (
               <>
                 <Send className="w-4 h-4" />
-                <span>Tip {tipAmount} COOK & Send Message</span>
+                <span>{t.btnSendTribute}</span>
               </>
             )}
           </button>
@@ -269,7 +271,7 @@ export const CookieJarCard: React.FC = () => {
           <div className="flex items-center justify-between pb-3 border-b border-white/[0.06] mb-4">
             <div className="flex items-center gap-2 text-white font-semibold text-sm">
               <Award className="w-4 h-4 text-cookie-400" />
-              <span>Recent Tributes</span>
+              <span>{t.recentTributesTitle}</span>
             </div>
             <span className="text-[11px] font-mono text-emerald-400">Live SVM Feed</span>
           </div>

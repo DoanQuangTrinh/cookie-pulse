@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
     isDemoMode,
     toggleDemoMode,
   } = useTokenData();
-  const { lang, toggleLang, t } = useLanguage();
+  const { lang, setLang, toggleLang, t } = useLanguage();
   const [domain, setDomain] = useState<string | null>(null);
 
   // Check for .cook domain
@@ -37,6 +37,10 @@ export const Navbar: React.FC = () => {
     };
     checkDomain();
   }, [publicKey]);
+
+  const shortAddress = publicKey
+    ? `${publicKey.toBase58().slice(0, 4)}...${publicKey.toBase58().slice(-4)}`
+    : null;
 
   return (
     <header className="shrink-0 sticky top-0 z-40 w-full border-b border-white/[0.08] bg-obsidian-950/90 backdrop-blur-xl">
@@ -121,15 +125,33 @@ export const Navbar: React.FC = () => {
             <span>{t.nightlyReady}</span>
           </div>
 
-          {/* Language Switcher Button */}
-          <button
-            onClick={toggleLang}
-            className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-obsidian-900 border border-white/[0.08] hover:border-cookie-500/40 text-xs font-mono font-semibold text-slate-300 hover:text-cookie-300 transition-all shrink-0 shadow-sm"
-            title={lang === "en" ? "Chuyển sang Tiếng Việt" : "Switch to English"}
-          >
-            <Globe className="w-3.5 h-3.5 text-cookie-400" />
-            <span className="uppercase tracking-wide">{lang === "en" ? "EN" : "VI"}</span>
-          </button>
+          {/* Dual Segmented Language Switcher [ 🇻🇳 VI | 🇬🇧 EN ] */}
+          <div className="flex items-center p-0.5 rounded-xl bg-obsidian-900 border border-white/[0.08] text-xs font-mono shrink-0 shadow-sm">
+            <button
+              onClick={() => setLang("vi")}
+              className={`flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg transition-all ${
+                lang === "vi"
+                  ? "bg-cookie-500 text-obsidian-950 font-bold shadow-cookie-glow"
+                  : "text-slate-400 hover:text-white"
+              }`}
+              title="Tiếng Việt"
+            >
+              <span>🇻🇳</span>
+              <span>VI</span>
+            </button>
+            <button
+              onClick={() => setLang("en")}
+              className={`flex items-center gap-1 px-2 sm:px-2.5 py-1 rounded-lg transition-all ${
+                lang === "en"
+                  ? "bg-cookie-500 text-obsidian-950 font-bold shadow-cookie-glow"
+                  : "text-slate-400 hover:text-white"
+              }`}
+              title="English"
+            >
+              <span>🇬🇧</span>
+              <span>EN</span>
+            </button>
+          </div>
 
           {/* Sound FX Toggle */}
           <button
@@ -177,7 +199,9 @@ export const Navbar: React.FC = () => {
 
           {/* Custom Wallet Button */}
           <div className="flex items-center shrink-0">
-            <WalletMultiButton className="!bg-gradient-to-r !from-cookie-500 !to-amber-500 !hover:from-cookie-400 !hover:to-amber-400 !text-obsidian-950 !font-semibold !rounded-xl !h-10 !text-sm !shadow-cookie-glow !transition-all !duration-200 !whitespace-nowrap !shrink-0" />
+            <WalletMultiButton className="!bg-gradient-to-r !from-cookie-500 !to-amber-500 !hover:from-cookie-400 !hover:to-amber-400 !text-obsidian-950 !font-semibold !rounded-xl !h-10 !text-sm !shadow-cookie-glow !transition-all !duration-200 !whitespace-nowrap !shrink-0">
+              {publicKey ? (shortAddress ?? t.selectWallet) : t.selectWallet}
+            </WalletMultiButton>
           </div>
         </div>
       </div>

@@ -402,7 +402,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({
   const [lang, setLangState] = useState<Language>(() => {
     const saved = localStorage.getItem("cookiepulse_lang");
     if (saved === "vi" || saved === "en") return saved;
-    return "en"; // Default to English for international judges, but instant 1-click toggle to Vietnamese
+    return "vi"; // Default to Vietnamese, instant toggle to English
   });
 
   const setLang = (newLang: Language) => {
