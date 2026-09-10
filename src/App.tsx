@@ -9,6 +9,9 @@ import { CookieJarCard } from "./components/CookieJar/CookieJarCard";
 import { BridgeHelper } from "./components/Bridge/BridgeHelper";
 import { AiTerminal } from "./components/Copilot/AiTerminal";
 import { CookPad } from "./components/Launchpad/CookPad";
+import { PortfolioView } from "./components/Portfolio/PortfolioView";
+import { QuestsHub } from "./components/Quests/QuestsHub";
+import { LiveMarketTicker } from "./components/UI/LiveMarketTicker";
 import { ToastContainer } from "./components/UI/ToastContainer";
 import { TransactionReceiptModal } from "./components/UI/TransactionReceiptModal";
 import { ExternalLink } from "lucide-react";
@@ -27,6 +30,9 @@ export const App: React.FC = () => {
     <div className="h-screen flex flex-col bg-obsidian-950 text-slate-100 font-sans selection:bg-cookie-500 selection:text-obsidian-950 overflow-hidden">
       {/* Top Navbar */}
       <Navbar />
+
+      {/* Real-Time Live Market Pulse Ticker */}
+      <LiveMarketTicker />
 
       {/* Main Tab Navigation */}
       <TabNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
@@ -47,6 +53,16 @@ export const App: React.FC = () => {
           <SwapCard initialOutputMint={selectedSwapMint} />
         )}
 
+        {activeTab === "launchpad" && <CookPad />}
+
+        {activeTab === "portfolio" && (
+          <PortfolioView onNavigateTab={(tab) => setActiveTab(tab)} />
+        )}
+
+        {activeTab === "quests" && (
+          <QuestsHub onNavigateTab={(tab) => setActiveTab(tab)} />
+        )}
+
         {activeTab === "stake" && <StakingCard />}
 
         {activeTab === "fortune" && <FortuneCookieCard />}
@@ -58,8 +74,6 @@ export const App: React.FC = () => {
         {activeTab === "copilot" && (
           <AiTerminal onNavigateTab={(tab) => setActiveTab(tab)} />
         )}
-
-        {activeTab === "launchpad" && <CookPad />}
       </main>
 
       {/* Toast Notifications */}

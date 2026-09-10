@@ -1,4 +1,3 @@
-import React from "react";
 import {
   BarChart3,
   ArrowLeftRight,
@@ -8,6 +7,8 @@ import {
   Bot,
   Sparkles,
   Rocket,
+  Wallet,
+  Trophy,
 } from "lucide-react";
 import type { ActiveTab } from "../types";
 import { useLanguage } from "../context/LanguageContext";
@@ -37,11 +38,31 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
       desc: t.tabSwapDesc,
     },
     {
+      id: "launchpad" as ActiveTab,
+      label: "CookPad",
+      icon: Rocket,
+      desc: "1-Click Token Launcher",
+      badge: "Pump.fun",
+    },
+    {
+      id: "portfolio" as ActiveTab,
+      label: "Portfolio",
+      icon: Wallet,
+      desc: "Quản lý danh mục ví",
+    },
+    {
+      id: "quests" as ActiveTab,
+      label: "Quests",
+      icon: Trophy,
+      desc: "Nhiệm vụ & Điểm danh",
+      badge: "Airdrop",
+    },
+    {
       id: "stake" as ActiveTab,
       label: t.tabStake,
       icon: Coins,
       desc: t.tabStakeDesc,
-      badge: "High APY",
+      badge: "14.8%",
     },
     {
       id: "fortune" as ActiveTab,
@@ -61,6 +82,7 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
       label: t.tabBridge,
       icon: GitFork,
       desc: t.tabBridgeDesc,
+      badge: "Hyperlane",
     },
     {
       id: "copilot" as ActiveTab,
@@ -68,13 +90,6 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
       icon: Bot,
       desc: t.tabCopilotDesc,
       badge: "AI",
-    },
-    {
-      id: "launchpad" as ActiveTab,
-      label: "CookPad",
-      icon: Rocket,
-      desc: "1-Click Token Launcher",
-      badge: "1-Click",
     },
   ];
 

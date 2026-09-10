@@ -111,7 +111,7 @@ export interface TransactionReceipt {
   slot?: number;
   executionTimeMs?: number;
   tokenMint?: string;
-  actionType?: 'swap' | 'stake' | 'fortune' | 'cookiejar' | 'deploy';
+  actionType?: 'swap' | 'stake' | 'fortune' | 'cookiejar' | 'deploy' | 'bridge' | 'quest';
 }
 
 export interface DeployTokenParams {
@@ -125,6 +125,55 @@ export interface DeployTokenParams {
   disableFreezeAuthority: boolean;
 }
 
+export interface BondingCurveToken {
+  mint: string;
+  name: string;
+  symbol: string;
+  logoUrl: string;
+  description: string;
+  marketCapUsd: number;
+  volume24hUsd: number;
+  bondingProgressPct: number; // 0 - 100
+  priceCook: number;
+  creator: string;
+  createdAt: number;
+  repliesCount?: number;
+}
+
+export interface TradeOrder {
+  id: string;
+  type: 'buy' | 'sell';
+  maker: string;
+  amountCook: number;
+  priceUsd: number;
+  totalUsd: number;
+  timestamp: number;
+  txHash: string;
+}
+
+export interface ActivityLogItem {
+  id: string;
+  type: 'swap' | 'stake' | 'unstake' | 'deploy' | 'fortune' | 'cookiejar' | 'bridge' | 'quest';
+  title: string;
+  details: string;
+  amount?: string;
+  txHash: string;
+  slot: number;
+  timestamp: number;
+  status: 'confirmed' | 'pending';
+}
+
+export interface QuestItem {
+  id: string;
+  title: string;
+  description: string;
+  xpReward: number;
+  category: 'daily' | 'defi' | 'creator' | 'social';
+  completed: boolean;
+  claimed: boolean;
+  actionTab?: ActiveTab;
+}
+
 export type ActiveTab =
   | 'analytics'
   | 'swap'
@@ -133,5 +182,7 @@ export type ActiveTab =
   | 'cookiejar'
   | 'bridge'
   | 'copilot'
-  | 'launchpad';
+  | 'launchpad'
+  | 'portfolio'
+  | 'quests';
 
