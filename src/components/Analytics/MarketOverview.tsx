@@ -11,11 +11,13 @@ import {
   Sparkles,
   RefreshCw,
   SlidersHorizontal,
+  BarChart2,
 } from "lucide-react";
 import { useTokenData } from "../../context/TokenDataContext";
 import { useLanguage } from "../../context/LanguageContext";
 import { getExplorerTokenUrl, getExplorerAddressUrl } from "../../config/constants";
 import type { CookieToken } from "../../types";
+import { TokenDetailDrawer } from "./TokenDetailDrawer";
 
 interface MarketOverviewProps {
   onSelectTokenForSwap?: (mint: string) => void;
@@ -27,6 +29,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<"all" | "high-liq" | "gainers">("all");
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [selectedTokenForDetail, setSelectedTokenForDetail] = useState<CookieToken | null>(null);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -303,7 +306,15 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
                     </td>
 
                     <td className="py-3.5 px-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          onClick={() => setSelectedTokenForDetail(token)}
+                          className="px-2 py-1 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white border border-white/[0.08] text-xs font-medium transition-all flex items-center gap-1"
+                          title="View Chart & Security Audit"
+                        >
+                          <BarChart2 className="w-3.5 h-3.5 text-cookie-400" />
+                          <span className="hidden xl:inline">Biểu Đồ</span>
+                        </button>
                         {onSelectTokenForSwap && (
                           <button
                             onClick={() => onSelectTokenForSwap(token.mint)}
@@ -331,6 +342,13 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
         </div>
       </div>
     </div>
-  </div>
-);
+
+      {/* Interactive Token Deep-Dive & Chart Drawer */}
+      <TokenDetailDrawer
+        token={selectedTokenForDetail}
+        onClose={() => setSelectedTokenForDetail(null)}
+        onSelectForSwap={onSelectTokenForSwap || (() => {})}
+      />
+    </div>
+  );
 };

@@ -47,6 +47,8 @@ export const FortuneCookieCard: React.FC = () => {
     adjustDemoBalance,
     addToast,
     refreshBalances,
+    showTxReceipt,
+    chainSlot,
   } = useTokenData();
   const { t } = useLanguage();
 
@@ -148,6 +150,15 @@ export const FortuneCookieCard: React.FC = () => {
         setCurrentResult(result);
         setHistory([result, ...history]);
         setCracking(false);
+
+        showTxReceipt({
+          title: `Fortune Cookie Cracked (${multiplier}x Multiplier)`,
+          summary: `Inscribed fortune on Cookie Chain SVM: "${randomFortune.slice(0, 50)}..." and won ${rewardCook} COOK!`,
+          txHash: txSig,
+          slot: chainSlot > 0 ? chainSlot : 24239020,
+          executionTimeMs: 365,
+          actionType: "fortune",
+        });
 
         if (multiplier >= 5.0) {
           sounds.playSuccess();

@@ -8,7 +8,9 @@ import { FortuneCookieCard } from "./components/Fortune/FortuneCookieCard";
 import { CookieJarCard } from "./components/CookieJar/CookieJarCard";
 import { BridgeHelper } from "./components/Bridge/BridgeHelper";
 import { AiTerminal } from "./components/Copilot/AiTerminal";
+import { CookPad } from "./components/Launchpad/CookPad";
 import { ToastContainer } from "./components/UI/ToastContainer";
+import { TransactionReceiptModal } from "./components/UI/TransactionReceiptModal";
 import { ExternalLink } from "lucide-react";
 import type { ActiveTab } from "./types";
 
@@ -56,10 +58,15 @@ export const App: React.FC = () => {
         {activeTab === "copilot" && (
           <AiTerminal onNavigateTab={(tab) => setActiveTab(tab)} />
         )}
+
+        {activeTab === "launchpad" && <CookPad />}
       </main>
 
       {/* Toast Notifications */}
       <ToastContainer />
+
+      {/* On-Chain Transaction Receipt Modal */}
+      <TransactionReceiptModal />
 
       {/* Footer */}
       <footer className="shrink-0 w-full border-t border-white/[0.08] bg-obsidian-900/60 backdrop-blur-md py-2.5">

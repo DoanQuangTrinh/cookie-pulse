@@ -103,5 +103,35 @@ export interface FortuneResult {
   txHash: string;
 }
 
-export type ActiveTab = 'analytics' | 'swap' | 'stake' | 'fortune' | 'cookiejar' | 'bridge' | 'copilot';
+export interface TransactionReceipt {
+  isOpen: boolean;
+  title: string;
+  summary: string;
+  txHash: string;
+  slot?: number;
+  executionTimeMs?: number;
+  tokenMint?: string;
+  actionType?: 'swap' | 'stake' | 'fortune' | 'cookiejar' | 'deploy';
+}
+
+export interface DeployTokenParams {
+  name: string;
+  symbol: string;
+  decimals: number;
+  initialSupply: number;
+  description: string;
+  logoUrl?: string;
+  revokeMintAuthority: boolean;
+  disableFreezeAuthority: boolean;
+}
+
+export type ActiveTab =
+  | 'analytics'
+  | 'swap'
+  | 'stake'
+  | 'fortune'
+  | 'cookiejar'
+  | 'bridge'
+  | 'copilot'
+  | 'launchpad';
 

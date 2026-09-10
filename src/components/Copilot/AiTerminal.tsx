@@ -10,6 +10,11 @@ import {
   CheckCircle2,
   Cpu,
   Layers,
+  Zap,
+  TrendingUp,
+  ShieldCheck,
+  Rocket,
+  Coins,
 } from "lucide-react";
 import { useTokenData } from "../../context/TokenDataContext";
 import { COOK_MINT, BCOOK_MINT } from "../../config/constants";
@@ -135,6 +140,46 @@ export const AiTerminal: React.FC<AiTerminalProps> = ({ onNavigateTab }) => {
             "Evaluated `cookie-mcp:stake` state. The canonical SPL Stake Pool is yielding ~14.8% APY. Current exchange rate: 1 bCOOK = 1.2928 COOK. Unstaking is instant from reserve without lockup.",
           actionTab: "stake",
         };
+      } else if (lower.includes("arbitrage") || lower.includes("arb")) {
+        reply = {
+          id: Math.random().toString(),
+          sender: "copilot",
+          content:
+            "⚡ [AUTONOMOUS ARBITRAGE SCANNER] Detected price divergence across DEX pools: Cookiebox DAMM v2 ($0.000105) vs CookieSwap BAMM ($0.000108). Net spread: +2.85%. Executing zero-risk atomic flash swap simulation on SVM:",
+          toolCall: {
+            name: "cookie-mcp:execute_arbitrage",
+            args: {
+              route: "COOK -> Cookiebox -> Token -> CookieSwap -> COOK",
+              capitalCook: 100,
+              computeUnits: 200000,
+            },
+            result: {
+              status: "CONFIRMED",
+              slot: chainSlot > 0 ? chainSlot : 24238992,
+              finality: "370ms",
+              profitCook: "+2.85 COOK",
+              gasPaid: "0.000005 COOK",
+            },
+          },
+          actionTab: "swap",
+        };
+      } else if (lower.includes("whale") || lower.includes("smart money")) {
+        reply = {
+          id: Math.random().toString(),
+          sender: "copilot",
+          content:
+            "🐋 [WHALE & SMART MONEY RADAR] Queried CookieScan DAS Indexer for top holder accumulation in the last 1,000 slots. No dumping detected. Smart money addresses accumulating:",
+          toolCall: {
+            name: "cookie-mcp:track_whales",
+            args: { thresholdCook: 5000, windowSlots: 1000 },
+            result: [
+              { address: "chef.cook (30k9...Et23)", netInflow: "+12,500 COOK", type: "Accumulation" },
+              { address: "baker.cook (8nVr...tLox)", netInflow: "+8,200 COOK", type: "Staked to bCOOK" },
+              { address: "reserve.cook (EhPa...9uHz)", netInflow: "+24,000 bCOOK", type: "Liquidity Provider" },
+            ],
+          },
+          actionTab: "analytics",
+        };
       } else if (lower.includes("bridge") || lower.includes("solana")) {
         reply = {
           id: Math.random().toString(),
@@ -183,6 +228,72 @@ export const AiTerminal: React.FC<AiTerminalProps> = ({ onNavigateTab }) => {
           <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
             <Cpu className="w-4 h-4 text-cookie-400" />
             <span>cookie-mcp connected</span>
+          </div>
+        </div>
+
+        {/* Autonomous Autopilot Strategies Bar */}
+        <div className="p-3.5 rounded-2xl bg-obsidian-950 border border-purple-500/25 flex flex-col gap-2 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+              </span>
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-purple-300 flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5 text-purple-400" />
+                Autonomous Autopilot Strategies
+              </span>
+            </div>
+            <span className="text-[10px] font-mono text-slate-500 hidden sm:inline">
+              1-Click SVM Agent Execution
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+            <button
+              onClick={() =>
+                handleSend("Run DCA Yield Autopilot on Cookie Chain SVM for bCOOK staking")
+              }
+              className="p-2.5 rounded-xl bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-left transition-all group"
+            >
+              <div className="flex items-center gap-1.5 text-xs font-bold text-purple-300 group-hover:text-purple-200">
+                <Coins className="w-3.5 h-3.5 text-purple-400" />
+                <span>DCA Yield Maximizer</span>
+              </div>
+              <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                Stake COOK to bCOOK (~14.8% APY)
+              </div>
+            </button>
+
+            <button
+              onClick={() =>
+                handleSend("Scan and simulate DEX Arbitrage across Cookiebox DAMM and CookieSwap")
+              }
+              className="p-2.5 rounded-xl bg-cookie-500/10 hover:bg-cookie-500/20 border border-cookie-500/30 text-left transition-all group"
+            >
+              <div className="flex items-center gap-1.5 text-xs font-bold text-cookie-300 group-hover:text-cookie-200">
+                <Zap className="w-3.5 h-3.5 text-cookie-400" />
+                <span>Arbitrage Scanner</span>
+              </div>
+              <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                Atomic zero-risk flash swap spread
+              </div>
+            </button>
+
+            <button
+              onClick={() =>
+                handleSend("Track smart money and top whale accumulation on CookieScan DAS")
+              }
+              className="p-2.5 rounded-xl bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-left transition-all group"
+            >
+              <div className="flex items-center gap-1.5 text-xs font-bold text-blue-300 group-hover:text-blue-200">
+                <TrendingUp className="w-3.5 h-3.5 text-blue-400" />
+                <span>Whale & Smart Money</span>
+              </div>
+              <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                CookieScan DAS top holder radar
+              </div>
+            </button>
           </div>
         </div>
 

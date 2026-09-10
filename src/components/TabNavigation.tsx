@@ -7,6 +7,7 @@ import {
   GitFork,
   Bot,
   Sparkles,
+  Rocket,
 } from "lucide-react";
 import type { ActiveTab } from "../types";
 import { useLanguage } from "../context/LanguageContext";
@@ -67,6 +68,13 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
       icon: Bot,
       desc: t.tabCopilotDesc,
       badge: "AI",
+    },
+    {
+      id: "launchpad" as ActiveTab,
+      label: "CookPad",
+      icon: Rocket,
+      desc: "1-Click Token Launcher",
+      badge: "1-Click",
     },
   ];
 
