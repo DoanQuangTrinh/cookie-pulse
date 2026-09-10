@@ -71,7 +71,7 @@ export const TabNavigation: React.FC<TabNavigationProps> = ({
   ];
 
   return (
-    <div className="sticky top-20 z-30 w-full border-b border-white/[0.06] bg-obsidian-950/80 backdrop-blur-md">
+    <div className="shrink-0 w-full border-b border-white/[0.06] bg-obsidian-950/80 backdrop-blur-md">
       <div className="max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-2 overflow-x-auto py-3 scrollbar-none">
           {tabs.map((tab) => {

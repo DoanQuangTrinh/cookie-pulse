@@ -83,89 +83,89 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
   }, [tokens, searchQuery, activeFilter]);
 
   return (
-    <div className="space-y-6">
+    <div className="h-full min-h-0 flex flex-col gap-3 overflow-hidden">
       {/* Top Ecosystem Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3 shrink-0">
         {/* Stat 1: COOK Price */}
-        <div className="p-5 rounded-2xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl relative overflow-hidden group hover:border-cookie-500/30 transition-all duration-300">
-          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <DollarSign className="w-16 h-16 text-cookie-400" />
+        <div className="p-3.5 sm:p-4 rounded-xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl relative overflow-hidden group hover:border-cookie-500/30 transition-all duration-300">
+          <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+            <DollarSign className="w-12 h-12 text-cookie-400" />
           </div>
-          <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
+          <p className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-400 mb-0.5">
             {t.nativePriceLabel}
           </p>
-          <div className="flex items-baseline gap-2">
-            <h3 className="text-2xl font-bold font-mono text-white">
+          <div className="flex items-baseline gap-1.5">
+            <h3 className="text-xl sm:text-2xl font-bold font-mono text-white">
               ${cookUsd.toFixed(6)}
             </h3>
-            <span className="text-xs font-mono text-emerald-400 font-semibold flex items-center">
-              <ArrowUpRight className="w-3.5 h-3.5" />
+            <span className="text-[11px] font-mono text-emerald-400 font-semibold flex items-center">
+              <ArrowUpRight className="w-3 h-3" />
               +3.4%
             </span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-2 font-mono">
+          <p className="text-[10px] text-slate-500 mt-1 font-mono">
             Fast sub-second finality
           </p>
         </div>
 
         {/* Stat 2: Active DEX Markets */}
-        <div className="p-5 rounded-2xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl relative overflow-hidden group hover:border-cookie-500/30 transition-all duration-300">
-          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <Layers className="w-16 h-16 text-amber-400" />
+        <div className="p-3.5 sm:p-4 rounded-xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl relative overflow-hidden group hover:border-cookie-500/30 transition-all duration-300">
+          <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+            <Layers className="w-12 h-12 text-amber-400" />
           </div>
-          <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
+          <p className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-400 mb-0.5">
             {t.activePoolsLabel}
           </p>
-          <div className="flex items-baseline gap-2">
-            <h3 className="text-2xl font-bold font-mono text-white">
+          <div className="flex items-baseline gap-1.5">
+            <h3 className="text-xl sm:text-2xl font-bold font-mono text-white">
               {stats.marketCount} {t.poolsCount}
             </h3>
           </div>
-          <p className="text-[11px] text-slate-500 mt-2 font-mono">
+          <p className="text-[10px] text-slate-500 mt-1 font-mono">
             {t.poolsSubtext}
           </p>
         </div>
 
         {/* Stat 3: Total Tokens */}
-        <div className="p-5 rounded-2xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl relative overflow-hidden group hover:border-cookie-500/30 transition-all duration-300">
-          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <Activity className="w-16 h-16 text-cookie-400" />
+        <div className="p-3.5 sm:p-4 rounded-xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl relative overflow-hidden group hover:border-cookie-500/30 transition-all duration-300">
+          <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+            <Activity className="w-12 h-12 text-cookie-400" />
           </div>
-          <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
+          <p className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-400 mb-0.5">
             {t.registeredTokensLabel}
           </p>
-          <div className="flex items-baseline gap-2">
-            <h3 className="text-2xl font-bold font-mono text-white">
+          <div className="flex items-baseline gap-1.5">
+            <h3 className="text-xl sm:text-2xl font-bold font-mono text-white">
               {stats.tokenCount.toLocaleString()}
             </h3>
           </div>
-          <p className="text-[11px] text-slate-500 mt-2 font-mono">
+          <p className="text-[10px] text-slate-500 mt-1 font-mono">
             {t.tokensSubtext}
           </p>
         </div>
 
         {/* Stat 4: Ecosystem TVL / Volume */}
-        <div className="p-5 rounded-2xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl relative overflow-hidden group hover:border-cookie-500/30 transition-all duration-300">
-          <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-            <TrendingUp className="w-16 h-16 text-emerald-400" />
+        <div className="p-3.5 sm:p-4 rounded-xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl relative overflow-hidden group hover:border-cookie-500/30 transition-all duration-300">
+          <div className="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+            <TrendingUp className="w-12 h-12 text-emerald-400" />
           </div>
-          <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
+          <p className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-400 mb-0.5">
             {t.estLiquidityLabel}
           </p>
-          <div className="flex items-baseline gap-2">
-            <h3 className="text-2xl font-bold font-mono text-white">
+          <div className="flex items-baseline gap-1.5">
+            <h3 className="text-xl sm:text-2xl font-bold font-mono text-white">
               ${stats.totalLiqUsd.toLocaleString(undefined, { maximumFractionDigits: 0 })}
             </h3>
           </div>
-          <p className="text-[11px] text-slate-500 mt-2 font-mono">
+          <p className="text-[10px] text-slate-500 mt-1 font-mono">
             {t.liquiditySubtext}
           </p>
         </div>
       </div>
 
-      {/* Token Radar Controls & Search */}
-      <div className="p-5 rounded-2xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl space-y-4">
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      {/* Token Radar Controls & Search & Table */}
+      <div className="flex-1 min-h-0 p-3.5 sm:p-4 rounded-2xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl flex flex-col gap-3 overflow-hidden">
+        <div className="shrink-0 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           {/* Search Box */}
           <div className="relative flex-1 max-w-md">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -174,12 +174,12 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t.searchPlaceholder}
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-obsidian-950/70 border border-white/[0.08] focus:border-cookie-500/50 focus:outline-none text-sm text-white placeholder-slate-500 font-sans transition-all"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-obsidian-950/70 border border-white/[0.08] focus:border-cookie-500/50 focus:outline-none text-xs sm:text-sm text-white placeholder-slate-500 font-sans transition-all"
             />
           </div>
 
-          {/* Filters & Refresh & Fixed Scroll Indicator */}
-          <div className="flex items-center gap-2 flex-wrap">
+          {/* Filters & Refresh */}
+          <div className="flex items-center gap-2 flex-wrap shrink-0">
             <button
               onClick={() => setActiveFilter("all")}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
@@ -216,23 +216,23 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
               title={t.refreshTooltip}
               className="p-2 rounded-lg bg-obsidian-950 border border-white/[0.06] text-slate-400 hover:text-white hover:border-cookie-500/30 transition-all"
             >
-              <RefreshCw className={`w-4 h-4 ${isRefreshing ? "animate-spin text-cookie-400" : ""}`} />
+              <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-cookie-400" : ""}`} />
             </button>
           </div>
         </div>
 
-        {/* Tokens Table with Fixed/Sticky Header & Internal Scroll Container */}
-        <div className="relative rounded-xl border border-white/[0.06] overflow-hidden">
-          <div className="max-h-[56vh] min-h-[380px] overflow-y-auto overflow-x-auto scrollbar-thin">
+        {/* Tokens Table Container (ONLY this scrolls internally!) */}
+        <div className="flex-1 min-h-0 rounded-xl border border-white/[0.06] overflow-hidden flex flex-col bg-obsidian-950/40">
+          <div className="flex-1 min-h-0 overflow-y-auto overflow-x-auto scrollbar-thin">
             <table className="w-full text-left border-collapse">
               <thead className="sticky top-0 z-20 bg-obsidian-950 shadow-md">
                 <tr className="border-b border-white/[0.08] bg-obsidian-950 text-[11px] font-mono uppercase tracking-wider text-slate-400">
-                  <th className="py-3 px-4 bg-obsidian-950">{t.tableAsset}</th>
-                  <th className="py-3 px-4 bg-obsidian-950">{t.tablePriceUsd}</th>
-                  <th className="py-3 px-4 bg-obsidian-950">{t.tablePriceCook}</th>
-                  <th className="py-3 px-4 bg-obsidian-950">{t.tableChange24h}</th>
-                  <th className="py-3 px-4 bg-obsidian-950">{t.tableLiquidity}</th>
-                  <th className="py-3 px-4 text-right bg-obsidian-950">{t.tableActions}</th>
+                  <th className="py-2.5 px-4 bg-obsidian-950">{t.tableAsset}</th>
+                  <th className="py-2.5 px-4 bg-obsidian-950">{t.tablePriceUsd}</th>
+                  <th className="py-2.5 px-4 bg-obsidian-950">{t.tablePriceCook}</th>
+                  <th className="py-2.5 px-4 bg-obsidian-950">{t.tableChange24h}</th>
+                  <th className="py-2.5 px-4 bg-obsidian-950">{t.tableLiquidity}</th>
+                  <th className="py-2.5 px-4 text-right bg-obsidian-950">{t.tableActions}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/[0.04] text-sm">

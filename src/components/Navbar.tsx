@@ -39,7 +39,7 @@ export const Navbar: React.FC = () => {
   }, [publicKey]);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-white/[0.08] bg-obsidian-950/90 backdrop-blur-xl">
+    <header className="shrink-0 sticky top-0 z-40 w-full border-b border-white/[0.08] bg-obsidian-950/90 backdrop-blur-xl">
       <div className="max-w-[1600px] w-full mx-auto px-3 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-2 sm:gap-4">
         {/* Left: Brand & Network Badge */}
         <div className="flex items-center gap-3 sm:gap-5 shrink-0">
