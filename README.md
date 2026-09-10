@@ -61,10 +61,32 @@ CookiePulse brings together a complete DeFi and ecosystem cockpit into one unifi
 - Direct portal to the Hyperlane Warp Route (`https://hyperlane.cookiescan.io`).
 - Explains token mechanics (Cookie native COOK with 9 decimals ⇄ Solana Token-2022 COOK with 6 decimals).
 
-### 10. 🤖 CookieCopilot AI Terminal (`cookie-mcp` Interface)
+### 10. 🤖 CookieCopilot AI Terminal & Autopilot (`cookie-mcp` Interface)
 - Conversational Web3 terminal designed around the official `cookie-mcp` tool suite.
 - Simulates and formats MCP actions (`get_tokens`, `get_quote`, `stake`, `bridge_status`).
-- Quick prompt pills for querying top tokens, pricing swap routes, and examining staking yields.
+- **Autonomous Autopilot Strategies**: 1-click execution for DCA Yield Maximizer (~14.8% APY), DEX Arbitrage Scanner (Cookiebox DAMM vs CookieSwap), and Smart Money / Whale Radar.
+
+### 11. 🚀 CookPad (1-Click Token & Memecoin Launcher)
+- Deploy SPL tokens and AI Agent memecoins on Cookie Chain SVM in under 10 seconds.
+- Customize Name, Symbol, Initial Supply, Decimals, Avatar Presets, and Project Description.
+- Automatic contract security presets: Revoke Mint Authority (Immutable Supply) and Disable Freeze Authority.
+- Direct on-chain deployment with instant CookieScan Explorer verification!
+
+### 12. 📊 Interactive Candlestick Chart & Security Audit Drawer
+- Mini-Birdeye / DexScreener embedded directly inside the Ecosystem Radar.
+- Interactive area & candlestick price chart with timeframe switchers (`15M`, `1H`, `4H`, `1D`, `1W`).
+- **Token Security Audit**: Mint Authority status, Freeze Authority status, LP venue, and SPL standard compliance.
+- 1-click Quick Swap integration.
+
+### 13. 🧾 Sub-Second Transaction Receipt Modal & Explorer Deep-Links
+- High-craft DeFi transaction receipt popup triggered across Swaps, Staking, Games, Tributes, and Token Launches.
+- Displays confirmed SVM slot block, execution finality (`~380ms`), gas fees, and copyable signature.
+- Direct **"View on CookieScan Explorer ↗"** link and **"Share on X (Twitter)"** button with pre-filled thread.
+
+### 14. 🌐 Full Bilingual Localization (English 🇬🇧 & Tiếng Việt 🇻🇳)
+- Instant 1-click dual segmented language switch on the top navbar.
+- Complete translation across all modules, headers, tooltips, and transaction states.
+- Persistent state saved to `localStorage`.
 
 ---
 
