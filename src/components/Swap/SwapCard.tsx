@@ -21,6 +21,7 @@ import {
 import { useTokenData } from "../../context/TokenDataContext";
 import { COOK_MINT, BCOOK_MINT, COOK_SYMBOL, BCOOK_SYMBOL } from "../../config/constants";
 import { getSwapQuote } from "../../services/cookieBoxApi";
+import { useLanguage } from "../../context/LanguageContext";
 import type { SwapQuote, CookieToken } from "../../types";
 
 interface SwapCardProps {
@@ -35,6 +36,7 @@ export const SwapCard: React.FC<SwapCardProps> = ({
   const { publicKey, sendTransaction } = useWallet();
   const { connection } = useConnection();
   const { tokens, cookBalance, bCookBalance, addToast, refreshBalances } = useTokenData();
+  const { t } = useLanguage();
 
   const [inputMint, setInputMint] = useState<string>(initialInputMint);
   const [outputMint, setOutputMint] = useState<string>(initialOutputMint);
@@ -215,7 +217,7 @@ export const SwapCard: React.FC<SwapCardProps> = ({
         <div className="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-5">
           <div className="flex items-center gap-2">
             <span className="text-lg font-bold text-white tracking-tight">
-              Swap on Cookie Chain
+              {t.swapTitle}
             </span>
             <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-cookie-500/10 text-cookie-300 border border-cookie-500/20">
               Cookiebox Router
@@ -229,7 +231,7 @@ export const SwapCard: React.FC<SwapCardProps> = ({
                 ? "bg-cookie-500/20 text-cookie-300 border border-cookie-500/30"
                 : "bg-obsidian-950 text-slate-400 hover:text-white border border-white/[0.06]"
             }`}
-            title="Slippage Settings"
+            title={t.slippageTolerance}
           >
             <Settings2 className="w-4 h-4" />
           </button>
@@ -239,7 +241,7 @@ export const SwapCard: React.FC<SwapCardProps> = ({
         {showSettings && (
           <div className="p-4 mb-5 rounded-2xl bg-obsidian-950/80 border border-white/[0.06] animate-slide-in space-y-2">
             <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-              <span>Slippage Tolerance</span>
+              <span>{t.slippageTolerance}</span>
               <span className="text-cookie-400 font-bold">{(slippageBps / 100).toFixed(1)}%</span>
             </div>
             <div className="flex gap-2">
@@ -263,9 +265,9 @@ export const SwapCard: React.FC<SwapCardProps> = ({
         {/* Input Token Box */}
         <div className="p-4 rounded-2xl bg-obsidian-950/70 border border-white/[0.06] focus-within:border-cookie-500/40 transition-all space-y-2">
           <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>You Pay</span>
+            <span>{t.youPay}</span>
             <span>
-              Balance: <strong className="text-slate-200">{userBalance.toFixed(4)}</strong>
+              {t.balance} <strong className="text-slate-200">{userBalance.toFixed(4)}</strong>
             </span>
           </div>
 
@@ -306,7 +308,7 @@ export const SwapCard: React.FC<SwapCardProps> = ({
         {/* Output Token Box */}
         <div className="p-4 rounded-2xl bg-obsidian-950/70 border border-white/[0.06] space-y-2 mt-1">
           <div className="flex items-center justify-between text-xs font-mono text-slate-400">
-            <span>You Receive (Estimated)</span>
+            <span>{t.youReceive}</span>
             {loadingQuote && (
               <span className="flex items-center gap-1 text-cookie-400 text-[11px]">
                 <Loader2 className="w-3 h-3 animate-spin" /> Routing...
@@ -337,13 +339,13 @@ export const SwapCard: React.FC<SwapCardProps> = ({
         {quote && (
           <div className="mt-4 p-3.5 rounded-xl bg-obsidian-950/40 border border-white/[0.04] space-y-2 text-xs font-mono">
             <div className="flex justify-between text-slate-400">
-              <span>Best Route</span>
+              <span>{t.routeTitle}</span>
               <span className="text-slate-200 font-medium">
                 {quote.segments[0]?.venue || "Cookiebox DAMM v2"}
               </span>
             </div>
             <div className="flex justify-between text-slate-400">
-              <span>Price Impact</span>
+              <span>{t.estPriceImpact}</span>
               <span className="text-emerald-400 font-medium">
                 ~{quote.priceImpactPct}%
               </span>
@@ -359,7 +361,7 @@ export const SwapCard: React.FC<SwapCardProps> = ({
               </span>
             </div>
             <div className="flex justify-between text-slate-400">
-              <span>Network Fee</span>
+              <span>{t.finalityTime}</span>
               <span className="text-emerald-400 font-medium">&lt; 0.000005 COOK (~$0.000001)</span>
             </div>
           </div>
@@ -378,12 +380,12 @@ export const SwapCard: React.FC<SwapCardProps> = ({
           {swapping ? (
             <>
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Confirming on Cookie Chain...</span>
+              <span>{t.swapping}</span>
             </>
           ) : !publicKey ? (
-            <span>Connect Wallet to Swap</span>
+            <span>{t.btnConnectToSwap}</span>
           ) : (
-            <span>Swap Tokens</span>
+            <span>{t.btnSwapNow}</span>
           )}
         </button>
       </div>

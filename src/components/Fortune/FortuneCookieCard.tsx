@@ -22,6 +22,7 @@ import {
 import { useTokenData } from "../../context/TokenDataContext";
 import { COOKIE_JAR_VAULT, getExplorerTxUrl } from "../../config/constants";
 import { sounds } from "../../services/soundEffects";
+import { useLanguage } from "../../context/LanguageContext";
 import type { FortuneResult } from "../../types";
 
 const FORTUNES = [
@@ -47,6 +48,7 @@ export const FortuneCookieCard: React.FC = () => {
     addToast,
     refreshBalances,
   } = useTokenData();
+  const { t } = useLanguage();
 
   const [cracking, setCracking] = useState<boolean>(false);
   const [isCracked, setIsCracked] = useState<boolean>(false);
@@ -199,18 +201,17 @@ export const FortuneCookieCard: React.FC = () => {
               <span>Degen Culture & Fast Finality</span>
             </div>
             <h2 className="text-2xl font-bold text-white tracking-tight">
-              On-Chain Fortune Cookie Cracker
+              {t.fortuneTitle}
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 mt-1">
-              Crack an on-chain fortune cookie for 0.1 COOK. Receive crypto prophecies & win up to 10x JACKPOT!
+              {t.fortuneDesc}
             </p>
           </div>
 
           <div className="flex items-center gap-3 font-mono text-xs px-4 py-2 rounded-2xl bg-obsidian-950/80 border border-white/[0.08]">
-            <span className="text-slate-400">Cost:</span>
-            <span className="text-cookie-400 font-bold">0.1 COOK</span>
+            <span className="text-slate-400">{t.fortuneCost}</span>
             <span className="text-slate-600">|</span>
-            <span className="text-emerald-400 font-bold">Max 10x Win</span>
+            <span className="text-emerald-400 font-bold">{t.fortuneMaxWin}</span>
           </div>
         </div>
       </div>
@@ -238,17 +239,17 @@ export const FortuneCookieCard: React.FC = () => {
                 />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                   <span className="px-3 py-1.5 rounded-full bg-obsidian-950/90 text-cookie-300 text-xs font-mono font-bold border border-cookie-500/40 shadow-cookie-glow">
-                    CLICK TO CRACK!
+                    {t.fortuneClickPrompt}
                   </span>
                 </div>
               </div>
 
               <div className="space-y-1">
                 <p className="text-sm font-semibold text-white">
-                  {cracking ? "Cracking on Cookie Chain..." : "Ready to reveal your destiny?"}
+                  {cracking ? t.cracking : "Ready to reveal your destiny?"}
                 </p>
                 <p className="text-xs font-mono text-slate-400">
-                  Sub-second cryptographic entropy generated on-chain
+                  {t.fortuneSubtext}
                 </p>
               </div>
 
@@ -262,7 +263,7 @@ export const FortuneCookieCard: React.FC = () => {
                 }`}
               >
                 <Zap className="w-4 h-4" />
-                <span>Crack Cookie (0.1 COOK)</span>
+                <span>{t.btnCrackCookie}</span>
               </button>
             </div>
           ) : (
@@ -270,7 +271,7 @@ export const FortuneCookieCard: React.FC = () => {
             <div className="w-full space-y-5 animate-slide-in py-2">
               <div className="flex items-center justify-center gap-3">
                 <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase bg-cookie-500/20 text-cookie-300 border border-cookie-500/40">
-                  {currentResult?.multiplier}X MULTIPLIER
+                  {currentResult?.multiplier}X {t.multiplier}
                 </span>
                 <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
                   +{currentResult?.rewardCook} COOK REWARD
@@ -286,7 +287,7 @@ export const FortuneCookieCard: React.FC = () => {
                   "{currentResult?.fortune}"
                 </p>
                 <div className="border-t border-amber-300/60 pt-3 flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-amber-900">
-                  <span>Lucky Numbers:</span>
+                  <span>{t.luckyNumbers}</span>
                   <div className="flex gap-1.5">
                     {currentResult?.luckyNumbers.map((num, i) => (
                       <span
@@ -306,7 +307,7 @@ export const FortuneCookieCard: React.FC = () => {
                   className="px-6 py-3 rounded-xl bg-obsidian-950 hover:bg-white/[0.06] border border-white/[0.1] text-xs font-bold text-slate-200 flex items-center gap-2 transition-all"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Crack Another Cookie</span>
+                  <span>{t.crackAnother}</span>
                 </button>
               </div>
             </div>
@@ -318,9 +319,9 @@ export const FortuneCookieCard: React.FC = () => {
           <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
             <div className="flex items-center gap-2 text-white font-semibold text-sm">
               <Dice5 className="w-4 h-4 text-cookie-400" />
-              <span>Recent Fortunes</span>
+              <span>{t.recentFortunesTitle}</span>
             </div>
-            <span className="text-[11px] font-mono text-emerald-400">On-Chain Ledger</span>
+            <span className="text-[11px] font-mono text-emerald-400">{t.onChainLedgerTitle}</span>
           </div>
 
           <div className="space-y-3 max-h-[380px] overflow-y-auto pr-1">
@@ -331,7 +332,7 @@ export const FortuneCookieCard: React.FC = () => {
               >
                 <div className="flex items-center justify-between text-xs font-mono">
                   <span className="font-bold text-cookie-300">
-                    {item.multiplier}x Multiplier
+                    {item.multiplier}x {t.multiplier}
                   </span>
                   <span className="text-emerald-400 font-semibold">
                     +{item.rewardCook} COOK

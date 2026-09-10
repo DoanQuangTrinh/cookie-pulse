@@ -13,6 +13,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { useTokenData } from "../../context/TokenDataContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { getExplorerTokenUrl, getExplorerAddressUrl } from "../../config/constants";
 import type { CookieToken } from "../../types";
 
@@ -22,6 +23,7 @@ interface MarketOverviewProps {
 
 export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenForSwap }) => {
   const { tokens, markets, cookUsd, loading, refreshTokens } = useTokenData();
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState<"all" | "high-liq" | "gainers">("all");
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -90,7 +92,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
             <DollarSign className="w-16 h-16 text-cookie-400" />
           </div>
           <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
-            Native Token Price
+            {t.nativePriceLabel}
           </p>
           <div className="flex items-baseline gap-2">
             <h3 className="text-2xl font-bold font-mono text-white">
@@ -112,15 +114,15 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
             <Layers className="w-16 h-16 text-amber-400" />
           </div>
           <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
-            Active DEX Pools
+            {t.activePoolsLabel}
           </p>
           <div className="flex items-baseline gap-2">
             <h3 className="text-2xl font-bold font-mono text-white">
-              {stats.marketCount} Pools
+              {stats.marketCount} {t.poolsCount}
             </h3>
           </div>
           <p className="text-[11px] text-slate-500 mt-2 font-mono">
-            Cookiebox & CookieSwap venues
+            {t.poolsSubtext}
           </p>
         </div>
 
@@ -130,7 +132,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
             <Activity className="w-16 h-16 text-cookie-400" />
           </div>
           <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
-            Registered Tokens
+            {t.registeredTokensLabel}
           </p>
           <div className="flex items-baseline gap-2">
             <h3 className="text-2xl font-bold font-mono text-white">
@@ -138,7 +140,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
             </h3>
           </div>
           <p className="text-[11px] text-slate-500 mt-2 font-mono">
-            Indexed by CookieScan DAS
+            {t.tokensSubtext}
           </p>
         </div>
 
@@ -148,7 +150,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
             <TrendingUp className="w-16 h-16 text-emerald-400" />
           </div>
           <p className="text-xs font-mono uppercase tracking-wider text-slate-400 mb-1">
-            Estimated Liquidity
+            {t.estLiquidityLabel}
           </p>
           <div className="flex items-baseline gap-2">
             <h3 className="text-2xl font-bold font-mono text-white">
@@ -156,7 +158,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
             </h3>
           </div>
           <p className="text-[11px] text-slate-500 mt-2 font-mono">
-            Cross-DEX liquidity depth
+            {t.liquiditySubtext}
           </p>
         </div>
       </div>
@@ -171,13 +173,13 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search token by name, symbol, or mint..."
+              placeholder={t.searchPlaceholder}
               className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-obsidian-950/70 border border-white/[0.08] focus:border-cookie-500/50 focus:outline-none text-sm text-white placeholder-slate-500 font-sans transition-all"
             />
           </div>
 
-          {/* Filters & Refresh */}
-          <div className="flex items-center gap-2">
+          {/* Filters & Refresh & Fixed Scroll Indicator */}
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               onClick={() => setActiveFilter("all")}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
@@ -186,7 +188,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
                   : "bg-obsidian-950 text-slate-400 hover:text-white border border-white/[0.06]"
               }`}
             >
-              All Tokens
+              {t.filterAll}
             </button>
             <button
               onClick={() => setActiveFilter("high-liq")}
@@ -196,7 +198,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
                   : "bg-obsidian-950 text-slate-400 hover:text-white border border-white/[0.06]"
               }`}
             >
-              High Liquidity
+              {t.filterHighLiq}
             </button>
             <button
               onClick={() => setActiveFilter("gainers")}
@@ -206,12 +208,12 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
                   : "bg-obsidian-950 text-slate-400 hover:text-white border border-white/[0.06]"
               }`}
             >
-              Top Gainers
+              {t.filterGainers}
             </button>
             <button
               onClick={handleRefresh}
               disabled={isRefreshing}
-              title="Refresh Ecosystem Data"
+              title={t.refreshTooltip}
               className="p-2 rounded-lg bg-obsidian-950 border border-white/[0.06] text-slate-400 hover:text-white hover:border-cookie-500/30 transition-all"
             >
               <RefreshCw className={`w-4 h-4 ${isRefreshing ? "animate-spin text-cookie-400" : ""}`} />
@@ -219,20 +221,21 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
           </div>
         </div>
 
-        {/* Tokens Table */}
-        <div className="overflow-x-auto rounded-xl border border-white/[0.06]">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-white/[0.06] bg-obsidian-950/60 text-[11px] font-mono uppercase tracking-wider text-slate-400">
-                <th className="py-3 px-4"># Asset</th>
-                <th className="py-3 px-4">Price (USD)</th>
-                <th className="py-3 px-4">Price (COOK)</th>
-                <th className="py-3 px-4">24h Change</th>
-                <th className="py-3 px-4">Liquidity (COOK)</th>
-                <th className="py-3 px-4 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/[0.04] text-sm">
+        {/* Tokens Table with Fixed/Sticky Header & Internal Scroll Container */}
+        <div className="relative rounded-xl border border-white/[0.06] overflow-hidden">
+          <div className="max-h-[56vh] min-h-[380px] overflow-y-auto overflow-x-auto scrollbar-thin">
+            <table className="w-full text-left border-collapse">
+              <thead className="sticky top-0 z-20 bg-obsidian-950 shadow-md">
+                <tr className="border-b border-white/[0.08] bg-obsidian-950 text-[11px] font-mono uppercase tracking-wider text-slate-400">
+                  <th className="py-3 px-4 bg-obsidian-950">{t.tableAsset}</th>
+                  <th className="py-3 px-4 bg-obsidian-950">{t.tablePriceUsd}</th>
+                  <th className="py-3 px-4 bg-obsidian-950">{t.tablePriceCook}</th>
+                  <th className="py-3 px-4 bg-obsidian-950">{t.tableChange24h}</th>
+                  <th className="py-3 px-4 bg-obsidian-950">{t.tableLiquidity}</th>
+                  <th className="py-3 px-4 text-right bg-obsidian-950">{t.tableActions}</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/[0.04] text-sm">
               {filteredTokens.map((token, index) => {
                 const name = token.metadata?.name || "Unknown Token";
                 const symbol = token.metadata?.symbol || token.mint.slice(0, 4);
@@ -328,5 +331,6 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 };

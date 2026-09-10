@@ -30,7 +30,7 @@ export const App: React.FC = () => {
       <TabNavigation activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+      <main className="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {activeTab === "analytics" && (
           <MarketOverview onSelectTokenForSwap={handleSelectTokenForSwap} />
         )}
@@ -56,8 +56,8 @@ export const App: React.FC = () => {
       <ToastContainer />
 
       {/* Footer */}
-      <footer className="w-full border-t border-white/[0.08] bg-obsidian-900/40 backdrop-blur-md py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
+      <footer className="w-full border-t border-white/[0.08] bg-obsidian-900/40 backdrop-blur-md py-6">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
           <div className="flex items-center gap-2">
             <span>Built on</span>
             <span className="text-cookie-400 font-bold">Cookie Chain SVM</span>
