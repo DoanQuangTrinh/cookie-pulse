@@ -132,7 +132,7 @@ CookiePulse brings together a complete DeFi and ecosystem cockpit into one unifi
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/cookie-pulse.git
+git clone https://github.com/DoanQuangTrinh/cookie-pulse.git
 cd cookie-pulse
 
 # Install dependencies
