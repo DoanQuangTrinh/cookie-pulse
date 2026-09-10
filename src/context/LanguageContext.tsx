@@ -17,6 +17,9 @@ export interface Translations {
   selectWallet: string;
   copyAddress: string;
   copied: string;
+  ecosystem: string;
+  docs: string;
+  rpc: string;
 
   // Tabs
   tabRadar: string;
@@ -151,6 +154,9 @@ const translations: Record<Language, Translations> = {
     selectWallet: "Select Wallet",
     copyAddress: "Copy address",
     copied: "Copied!",
+    ecosystem: "Ecosystem",
+    docs: "Docs",
+    rpc: "RPC Node",
 
     tabRadar: "Ecosystem Radar",
     tabRadarDesc: "Live Markets & 6k+ Tokens",
@@ -275,6 +281,9 @@ const translations: Record<Language, Translations> = {
     selectWallet: "Kết Nối Ví",
     copyAddress: "Sao chép địa chỉ",
     copied: "Đã chép!",
+    ecosystem: "Hệ Sinh Thái",
+    docs: "Tài Liệu",
+    rpc: "Node RPC",
 
     tabRadar: "Radar Hệ Sinh Thái",
     tabRadarDesc: "Thị Trường & 6k+ Token",
