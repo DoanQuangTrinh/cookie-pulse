@@ -49,6 +49,7 @@ export const FortuneCookieCard: React.FC = () => {
     refreshBalances,
     showTxReceipt,
     chainSlot,
+    recordActivity,
   } = useTokenData();
   const { t } = useLanguage();
 
@@ -158,6 +159,15 @@ export const FortuneCookieCard: React.FC = () => {
           slot: chainSlot > 0 ? chainSlot : 24239020,
           executionTimeMs: 365,
           actionType: "fortune",
+        });
+
+        recordActivity({
+          type: "fortune",
+          title: `Cracked Fortune Cookie (${multiplier}x Multiplier)`,
+          details: `Inscribed on Cookie Chain SVM: "${randomFortune.slice(0, 40)}..."`,
+          amount: `+${rewardCook} COOK`,
+          txHash: txSig,
+          status: "confirmed",
         });
 
         if (multiplier >= 5.0) {

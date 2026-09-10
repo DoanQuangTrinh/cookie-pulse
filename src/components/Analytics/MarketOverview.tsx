@@ -27,7 +27,7 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
   const { tokens, markets, cookUsd, loading, refreshTokens } = useTokenData();
   const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeFilter, setActiveFilter] = useState<"all" | "high-liq" | "gainers">("all");
+  const [activeFilter, setActiveFilter] = useState<"all" | "ai" | "meme" | "high-liq" | "gainers">("all");
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedTokenForDetail, setSelectedTokenForDetail] = useState<CookieToken | null>(null);
 
@@ -72,7 +72,26 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
       );
     }
 
-    if (activeFilter === "high-liq") {
+    if (activeFilter === "ai") {
+      list = list.filter(
+        (t) =>
+          t.metadata?.symbol?.includes("AI") ||
+          t.metadata?.symbol === "CAI" ||
+          t.metadata?.symbol === "CYBER" ||
+          t.metadata?.name?.toLowerCase().includes("ai") ||
+          t.metadata?.name?.toLowerCase().includes("agent")
+      );
+    } else if (activeFilter === "meme") {
+      list = list.filter(
+        (t) =>
+          t.metadata?.symbol === "PEPECOOK" ||
+          t.metadata?.symbol === "TRASH" ||
+          t.metadata?.symbol === "BAKER" ||
+          t.metadata?.name?.toLowerCase().includes("pepe") ||
+          t.metadata?.name?.toLowerCase().includes("baker") ||
+          t.metadata?.name?.toLowerCase().includes("meme")
+      );
+    } else if (activeFilter === "high-liq") {
       list = [...list].sort(
         (a, b) => (b.marketData?.liquidity ?? 0) - (a.marketData?.liquidity ?? 0)
       );
@@ -192,6 +211,26 @@ export const MarketOverview: React.FC<MarketOverviewProps> = ({ onSelectTokenFor
               }`}
             >
               {t.filterAll}
+            </button>
+            <button
+              onClick={() => setActiveFilter("ai")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                activeFilter === "ai"
+                  ? "bg-cookie-500 text-obsidian-950 font-semibold shadow-cookie-glow"
+                  : "bg-obsidian-950 text-slate-400 hover:text-white border border-white/[0.06]"
+              }`}
+            >
+              🤖 AI Agents
+            </button>
+            <button
+              onClick={() => setActiveFilter("meme")}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                activeFilter === "meme"
+                  ? "bg-cookie-500 text-obsidian-950 font-semibold shadow-cookie-glow"
+                  : "bg-obsidian-950 text-slate-400 hover:text-white border border-white/[0.06]"
+              }`}
+            >
+              🎭 Memecoins
             </button>
             <button
               onClick={() => setActiveFilter("high-liq")}

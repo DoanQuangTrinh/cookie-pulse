@@ -68,6 +68,7 @@ export const CookieJarCard: React.FC = () => {
     refreshBalances,
     showTxReceipt,
     chainSlot,
+    recordActivity,
   } = useTokenData();
   const { t } = useLanguage();
 
@@ -125,6 +126,15 @@ export const CookieJarCard: React.FC = () => {
           slot: chainSlot > 0 ? chainSlot : 24239025,
           executionTimeMs: 370,
           actionType: "cookiejar",
+        });
+
+        recordActivity({
+          type: "cookiejar",
+          title: `Inscribed Tribute in Cookie Jar`,
+          details: `Sent ${tipAmount} COOK: "${newEntry.message.slice(0, 40)}..."`,
+          amount: `${tipAmount} COOK`,
+          txHash: sig,
+          status: "confirmed",
         });
 
         confetti({

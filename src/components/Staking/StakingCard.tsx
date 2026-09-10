@@ -27,12 +27,15 @@ export const StakingCard: React.FC = () => {
   const {
     cookBalance,
     bCookBalance,
+    cookUsd,
     addToast,
     refreshBalances,
     showTxReceipt,
     isDemoMode,
     adjustDemoBalance,
     chainSlot,
+    recordActivity,
+    completeQuest,
   } = useTokenData();
   const { t } = useLanguage();
 
@@ -120,6 +123,22 @@ export const StakingCard: React.FC = () => {
           executionTimeMs: 382,
           actionType: "stake",
         });
+
+        recordActivity({
+          type: mode === "stake" ? "stake" : "unstake",
+          title: mode === "stake" ? "Staked COOK in CandyShop Pool" : "Instant Unstaked bCOOK",
+          details:
+            mode === "stake"
+              ? `Deposited ${numAmount} COOK into liquid staking at 14.8% APY`
+              : `Burned ${numAmount} bCOOK for ${estimatedReceive.toFixed(4)} COOK`,
+          amount: `${numAmount} ${mode === "stake" ? "COOK" : "bCOOK"}`,
+          txHash: sig,
+          status: "confirmed",
+        });
+
+        if (mode === "stake") {
+          completeQuest("quest-stake");
+        }
 
         confetti({
           particleCount: 70,
@@ -370,6 +389,51 @@ export const StakingCard: React.FC = () => {
             <span>{mode === "stake" ? t.btnStakeCook : t.btnUnstakeCook}</span>
           )}
         </button>
+      </div>
+
+      {/* Interactive Yield & Rewards Calculator */}
+      <div className="p-5 sm:p-6 rounded-3xl bg-obsidian-900/80 border border-white/[0.08] shadow-card-subtle backdrop-blur-xl space-y-4">
+        <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
+          <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+            <TrendingUp className="w-4 h-4 text-cookie-400" />
+            <span>Ước Tính Lợi Nhuận Staking (Compound Yield Calculator)</span>
+          </h4>
+          <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+            14.8% APY
+          </span>
+        </div>
+
+        <div className="grid grid-cols-3 gap-3 text-center font-mono">
+          <div className="p-3 rounded-2xl bg-obsidian-950/70 border border-white/[0.04]">
+            <span className="text-[10px] text-slate-500 block mb-1">Sau 30 Ngày</span>
+            <span className="text-white font-bold text-sm block">
+              +{(numAmount * 0.148 * (30 / 365)).toFixed(3)} COOK
+            </span>
+            <span className="text-[10px] text-emerald-400">
+              ≈ ${(numAmount * 0.148 * (30 / 365) * cookUsd).toFixed(4)}
+            </span>
+          </div>
+
+          <div className="p-3 rounded-2xl bg-obsidian-950/70 border border-white/[0.04]">
+            <span className="text-[10px] text-slate-500 block mb-1">Sau 90 Ngày</span>
+            <span className="text-white font-bold text-sm block">
+              +{(numAmount * 0.148 * (90 / 365)).toFixed(3)} COOK
+            </span>
+            <span className="text-[10px] text-emerald-400">
+              ≈ ${(numAmount * 0.148 * (90 / 365) * cookUsd).toFixed(4)}
+            </span>
+          </div>
+
+          <div className="p-3 rounded-2xl bg-cookie-500/10 border border-cookie-500/30">
+            <span className="text-[10px] text-cookie-300 block mb-1">Sau 1 Năm (APY)</span>
+            <span className="text-cookie-300 font-bold text-sm block">
+              +{(numAmount * 0.148).toFixed(3)} COOK
+            </span>
+            <span className="text-[10px] text-emerald-400">
+              ≈ ${(numAmount * 0.148 * cookUsd).toFixed(4)}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
